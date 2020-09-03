@@ -7,7 +7,7 @@
 # Licensed under the Apache License, Version 2.0
 # http://www.apache.org/licenses/LICENSE-2.0
 
-__author__ = "Kevin Clark, with help from Piero"
+__author__ = "Kevin Clark, with help from Piero and Joseph Hafed"
 
 """
 Define the extract_names() function below and change main()
@@ -97,6 +97,7 @@ def main(args):
 
     # +++your code here++
     for i in file_list:
+        '''Loops through provided files and carries out action based on args'''
         summary = '\n'.join(extract_names(i))
         if create_summary:
             with open(i + '.summary', 'w') as f:
