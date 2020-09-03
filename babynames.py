@@ -7,6 +7,8 @@
 # Licensed under the Apache License, Version 2.0
 # http://www.apache.org/licenses/LICENSE-2.0
 
+__author__ = "Kevin Clark, with help from Piero and Joseph Hafed"
+
 """
 Define the extract_names() function below and change main()
 to call it.
@@ -44,7 +46,18 @@ def extract_names(filename):
     ['2006', 'Aaliyah 91', 'Aaron 57', 'Abagail 895', ...]
     """
     names = []
-    # +++your code here+++
+    with open(filename, 'r') as f:
+        x = f.read()
+        dictionary = {}
+        names.append(re.findall(r'Popularity\sin\s(\d\d\d\d)', x)[0])
+        data = re.findall(r'<td>(\d+)</td><td>(\w+)</td><td>(\w+)</td>', x)
+        for rank, b_name, g_name in data:
+            if b_name not in dictionary:
+                dictionary[b_name] = rank
+            if g_name not in dictionary:
+                dictionary[g_name] = rank
+        for name in sorted(dictionary.keys()):
+            names.append(f"{name} {dictionary[name]}")
     return names
 
 
@@ -82,7 +95,15 @@ def main(args):
     # Use the create_summary flag to decide whether to print the list
     # or to write the list to a summary file (e.g. `baby1990.html.summary`).
 
-    # +++your code here+++
+    # +++your code here++
+    for i in file_list:
+        '''Loops through provided files and carries out action based on args'''
+        summary = '\n'.join(extract_names(i))
+        if create_summary:
+            with open(i + '.summary', 'w') as f:
+                f.write(summary)
+        else:
+            print(summary)
 
 
 if __name__ == '__main__':
